@@ -3,11 +3,11 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
-  },
-  experimental: {
-    serverComponentsExternalPackages: ['pdf-parse'],
+  // Move pdf-parse out of the browser bundle (Node.js only)
+  serverExternalPackages: ['pdf-parse'],
+  // Fix workspace root detection warning (pnpm-lock.yaml + parent package-lock.json)
+  turbopack: {
+    root: __dirname,
   },
 }
 
