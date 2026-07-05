@@ -10,7 +10,7 @@
 
 **A full-stack, AI-powered mock interview platform that evaluates candidates across technical knowledge, communication, and coding skills — with real-time proctoring.**
 
-[Live Demo](#) • [Report a Bug](https://github.com/ponraj056/elevate-ai-interviewer/issues) • [Request Feature](https://github.com/ponraj056/elevate-ai-interviewer/issues)
+[Live Demo](https://elevate-ai-interviewer.onrender.com/) • [Report a Bug](https://github.com/ponraj056/elevate-ai-interviewer/issues) • [Request Feature](https://github.com/ponraj056/elevate-ai-interviewer/issues)
 
 </div>
 
