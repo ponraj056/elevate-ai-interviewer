@@ -1297,55 +1297,67 @@ export default function Home() {
       />
 
       <div className="relative z-10 flex flex-col h-full">
-        {/* Header */}
-        <header className="sticky top-0 z-20 border-b border-border/50 backdrop-blur-md bg-background/80">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+        {/* Header — hidden during active test phases */}
+        <AnimatePresence>
+          {phase !== 'PHASE_1_QA' && phase !== 'PHASE_2_VOICE' && phase !== 'PHASE_3_CODING' && phase !== 'PHASE_4_FEEDBACK' && (
+            <motion.header
+              key="navbar"
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -60 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="sticky top-0 z-20 border-b border-border/50 backdrop-blur-md bg-background/80"
             >
-              <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent flex items-center gap-2">
-                <Shield className="w-6 h-6 text-primary animate-pulse" />
-                Elevate AI Interviewer
-              </h1>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 font-mono">
-                Coach Phase: {phase.replace('_', ' ')}
-              </p>
-            </motion.div>
-            <div className="flex items-center gap-2">
-              {user && (
-                <div className="flex items-center gap-2 mr-2">
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 max-w-[120px] truncate">
-                    {user.name}
-                  </span>
-                  <Button
-                    onClick={handleLogout}
-                    variant="ghost"
-                    size="sm"
-                    className="flex items-center gap-1.5 hover:bg-destructive/10 hover:text-destructive h-9 rounded-lg"
-                    title="Sign Out"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span className="hidden sm:inline">Sign Out</span>
-                  </Button>
-                </div>
-              )}
-              {phase !== 'SETUP' && phase !== 'PHASE_0_RESUME' && phase !== 'COMPLETED_REPORT' && phase !== 'DASHBOARD' && (
-                <Button
-                  onClick={handleStartNewInterview}
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-1 border-destructive text-destructive hover:bg-destructive/10"
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  <AlertCircle className="w-4 h-4" />
-                  Abort
-                </Button>
-              )}
-              <ThemeToggle />
-            </div>
-          </div>
-        </header>
+                  <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent flex items-center gap-2">
+                    <Shield className="w-6 h-6 text-primary animate-pulse" />
+                    Elevate AI Interviewer
+                  </h1>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1 font-mono">
+                    Coach Phase: {phase.replace('_', ' ')}
+                  </p>
+                </motion.div>
+                <div className="flex items-center gap-2">
+                  {user && (
+                    <div className="flex items-center gap-2 mr-2">
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 max-w-[120px] truncate">
+                        {user.name}
+                      </span>
+                      <Button
+                        onClick={handleLogout}
+                        variant="ghost"
+                        size="sm"
+                        className="flex items-center gap-1.5 hover:bg-destructive/10 hover:text-destructive h-9 rounded-lg"
+                        title="Sign Out"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span className="hidden sm:inline">Sign Out</span>
+                      </Button>
+                    </div>
+                  )}
+                  {phase !== 'SETUP' && phase !== 'PHASE_0_RESUME' && phase !== 'COMPLETED_REPORT' && phase !== 'DASHBOARD' && (
+                    <Button
+                      onClick={handleStartNewInterview}
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-1 border-destructive text-destructive hover:bg-destructive/10"
+                    >
+                      <AlertCircle className="w-4 h-4" />
+                      Abort
+                    </Button>
+                  )}
+                  <ThemeToggle />
+                </div>
+              </div>
+            </motion.header>
+          )}
+        </AnimatePresence>
+
 
         {/* Dynamic Panels */}
         <div className="flex-1 overflow-y-auto relative min-h-0 flex flex-col">
