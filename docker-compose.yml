@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: elevate_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_change_me
+      MYSQL_DATABASE: elevate_interviewer
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: elevate_app
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root_password_change_me
+      - MYSQL_DATABASE=elevate_interviewer
+      - MYSQL_PORT=3306
+      - JWT_SECRET=elevate-ai-interviewer-secret-key-12345-never-share-this
+      - AI_GATEWAY_API_KEY=${AI_GATEWAY_API_KEY:-}
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
